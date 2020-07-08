@@ -22,6 +22,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/Trendyol/gaos/logger"
+	"github.com/Trendyol/gaos/runner"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
@@ -36,8 +38,6 @@ import (
 	"strings"
 	"syscall"
 	"time"
-	"zeus-gitlab.trendyol.com/general/gaos/logger"
-	"zeus-gitlab.trendyol.com/general/gaos/runner"
 )
 
 const dockerfile = `FROM trendyol/gaos:%s

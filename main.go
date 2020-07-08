@@ -17,8 +17,8 @@ limitations under the License.
 package main
 
 import (
-	"zeus-gitlab.trendyol.com/general/gaos/cmd"
-	"zeus-gitlab.trendyol.com/general/gaos/logger"
+	"github.com/Trendyol/gaos/cmd"
+	"github.com/Trendyol/gaos/logger"
 )
 
 var (

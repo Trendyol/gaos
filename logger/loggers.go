@@ -124,7 +124,7 @@ func (loggers *Loggers) Trace(message interface{}) {
 }
 
 func Log(level string, message interface{}) {
-	log.Log(level,message)
+	log.Log(level, message)
 }
 
 func (loggers *Loggers) Log(level string, message interface{}) {

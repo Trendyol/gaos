@@ -19,6 +19,7 @@ package runner
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/Trendyol/gaos/logger"
 	"github.com/fasthttp/router"
 	"github.com/fatih/color"
 	"github.com/pkg/errors"
@@ -29,7 +30,6 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	"zeus-gitlab.trendyol.com/general/gaos/logger"
 )
 
 const BANNER = `

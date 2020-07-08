@@ -21,11 +21,9 @@ jobs:
         uses: actions/setup-go@v1
         with:
           go-version: ${{ matrix.go-version }}
-      -
-        name: Fetch Repository
+      - name: Fetch Repository
         uses: actions/checkout@v2
       - name: Build
         run: go build -v .
-      -
-        name: Test
+      - name: Test
         run: go test ./... -v

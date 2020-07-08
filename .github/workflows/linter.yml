@@ -12,11 +12,9 @@ jobs:
   Golint:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Run GoLinter
+      - name: Run GoLinter
         uses: reviewdog/action-golangci-lint@v1
         with:
           golangci_lint_flags: "--tests=false"

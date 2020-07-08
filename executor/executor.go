@@ -17,8 +17,8 @@ limitations under the License.
 package executor
 
 import (
+	"github.com/Trendyol/gaos/runner"
 	"github.com/pkg/errors"
-	"zeus-gitlab.trendyol.com/general/gaos/runner"
 )
 
 const DOCKER = "docker"

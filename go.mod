@@ -1,4 +1,4 @@
-module zeus-gitlab.trendyol.com/general/gaos
+module github.com/Trendyol/gaos
 
 go 1.13
 

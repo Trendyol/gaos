@@ -20,6 +20,8 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/Trendyol/gaos/logger"
+	"github.com/Trendyol/gaos/runner"
 	"github.com/pkg/errors"
 	appsv1 "k8s.io/api/apps/v1"
 	apiv1 "k8s.io/api/core/v1"
@@ -31,8 +33,6 @@ import (
 	"k8s.io/client-go/util/homedir"
 	"path/filepath"
 	"strconv"
-	"zeus-gitlab.trendyol.com/general/gaos/logger"
-	"zeus-gitlab.trendyol.com/general/gaos/runner"
 )
 
 type Kubernetes struct {

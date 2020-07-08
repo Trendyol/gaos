@@ -18,13 +18,13 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/Trendyol/gaos/executor"
+	"github.com/Trendyol/gaos/logger"
+	"github.com/Trendyol/gaos/runner"
 	"github.com/spf13/cobra"
 	"os"
 	"runtime"
 	"strings"
-	"zeus-gitlab.trendyol.com/general/gaos/executor"
-	"zeus-gitlab.trendyol.com/general/gaos/logger"
-	"zeus-gitlab.trendyol.com/general/gaos/runner"
 )
 
 func Execute(version, builtBy, date, commit string) {
@@ -130,4 +130,3 @@ func Execute(version, builtBy, date, commit string) {
 
 	_ = cmd.Execute()
 }
-

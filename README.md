@@ -44,7 +44,7 @@ $ brew install gaos
 
 * Via Go
 ```bash
-$ go get -u zeus-gitlab.trendyol.com/general/gaos 
+$ go get -u github.com/Trendyol/gaos 
 ```
 
 * Build on Docker
