@@ -1,0 +1,19 @@
+ARG IMAGE_BASE=golang
+ARG GO_VERSION=1.14
+
+FROM ${IMAGE_BASE}:${GO_VERSION} AS builder
+
+ENV CGO_ENABLED=0
+ENV GOOS=linux
+ENV GOARCH=amd64
+ENV GO111MODULE=on
+
+ADD . ./app
+
+WORKDIR app
+
+RUN CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -ldflags="-w -s" -o gaos
+
+FROM scratch
+
+COPY --from=builder /go/app/gaos   /gaos

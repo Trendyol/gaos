@@ -1,0 +1,93 @@
+{
+  "service": {
+    "product": {
+      "port": 9080,
+      "path": {
+        "/product/{id}": {
+          "scenario": "latency-scenario",
+          "method": "GET"
+        }
+      }
+    },
+    "search": {
+      "port": 9081,
+      "path": {
+        "/search/{id}": {
+          "scenario": "latency-scenario",
+          "method": "GET"
+        }
+      }
+    }
+  },
+  "scenario": {
+    "latency-scenario": {
+      "name": "250ms latency scenario",
+      "latency": "250ms",
+      "rate": 10,
+      "accept": {
+        "status": 200,
+        "result": {
+          "type": "static",
+          "content": {
+            "name": "Gaos T-Shirt",
+            "description": "250ms latency scenario accept"
+          }
+        }
+      },
+      "ignore": {
+        "status": 200,
+        "direct": "duration-scenario",
+        "result": {
+          "type": "static",
+          "content": {
+            "name": "Gaos T-Shirt",
+            "description": "250ms latency scenario ignore"
+          }
+        }
+      }
+    },
+    "duration-scenario": {
+      "name": "request total duration 1s",
+      "method": "GET",
+      "duration": "1s",
+      "rate": 10,
+      "accept": {
+        "status": 200,
+        "direct": "error-scenario",
+        "result": {
+          "type": "static",
+          "content": {
+            "name": "Gaos T-Shirt",
+            "description": "request total duration 1s scenario accept"
+          }
+        }
+      }
+    },
+    "error-scenario": {
+      "name": "return 500 when rate exceed 10",
+      "method": "GET",
+      "rate": 10,
+      "accept": {
+        "status": 200,
+        "result": {
+          "type": "static",
+          "content": {
+            "name": "Gaos T-Shirt",
+            "description": "return 500 when rate exceed 10 scenario accept"
+          }
+        }
+      },
+      "ignore": {
+        "status": 500,
+        "direct": "latency-scenario",
+        "result": {
+          "type": "static",
+          "content": {
+            "error": "Beklenmeyen bir hata olustu",
+            "description": "return 500 when rate exceed 10 scenario ignore"
+          }
+        }
+      }
+    }
+  }
+}

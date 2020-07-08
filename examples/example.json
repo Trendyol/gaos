@@ -1,0 +1,82 @@
+{
+  "service": {
+    "search": {
+      "port": 9082,
+      "path": {
+        "/api/timezone/Europe/{location}": {
+          "scenario": "latency",
+          "method": "GET"
+        }
+      }
+    }
+  },
+  "scenario": {
+    "latency": {
+      "name": "this should add 500ms latency",
+      "latency": "500ms",
+      "rate": 3,
+      "accept": {
+        "result": {
+          "type": "redirect",
+          "content": {
+            "host": "https://worldtimeapi.org"
+          }
+        }
+      },
+      "ignore": {
+        "status": 200,
+        "direct": "duration",
+        "result": {
+          "type": "static",
+          "content": {
+            "name": "Gaos T-Shirt",
+            "description": "250ms latency scenario ignore"
+          }
+        }
+      }
+    },
+    "duration": {
+      "name": "this should set response time exactly 1000ms",
+      "method": "GET",
+      "duration": "3s",
+      "rate": 3,
+      "accept": {
+        "status": 200,
+        "direct": "error",
+        "result": {
+          "type": "static",
+          "content": {
+            "name": "Duration",
+            "description": "This response should take exactly 3000ms after 3 tries"
+          }
+        }
+      }
+    },
+    "error": {
+      "name": "this should always returns 500 when rate exceeded 3",
+      "method": "GET",
+      "rate": 3,
+      "accept": {
+        "status": 500,
+        "result": {
+          "type": "static",
+          "content": {
+            "name": "Error",
+            "description": "This response should return 500 after 3 tries"
+          }
+        }
+      },
+      "ignore": {
+        "status": 500,
+        "direct": "latency-scenario",
+        "result": {
+          "type": "static",
+          "content": {
+            "error": "Beklenmeyen bir hata olustu",
+            "description": "return 500 when rate exceed 10 scenario ignore"
+          }
+        }
+      }
+    }
+  }
+}

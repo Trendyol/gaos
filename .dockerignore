@@ -1,0 +1,8 @@
+examples
+.git
+.gitignore
+.github
+*.md
+.goreleaser.yml
+Dockerfile
+LICENSE

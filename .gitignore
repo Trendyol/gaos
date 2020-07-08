@@ -1,0 +1,8 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.tar
+vendor/
+gaos
