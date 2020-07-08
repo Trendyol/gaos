@@ -11,10 +11,9 @@
 <br />
 
 <p align="center">
-  <a href="https://github.com/ellerbrock/open-source-badges/"><img src="https://badges.frapsoft.com/os/v1/open-source.png?v=103" alt="Open Source"></a>
-  <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="Apache 2.0"></a>
+  <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="Apache 2.0"></a>
   <a href="https://goreportcard.com/badge/github.com/Trendyol/gaos"><img src="https://goreportcard.com/badge/github.com/Trendyol/gaos?style=flat-square" alt="Go Report"></a>
-  <a href="https://github.com/Trendyol/gaos/actions?workflow=test"><img src="https://img.shields.io/github/workflow/status/Trendyol/gaos/Test?logo=GitHub&label=Build" alt="Build Status"></a>
+  <a href="https://github.com/Trendyol/gaos/actions?workflow=test"><img src="https://img.shields.io/github/workflow/status/Trendyol/gaos/Test?label=build&logo=github&style=flat-square" alt="Build Status"></a>
   <a href="https://github.com/Trendyol/gaos/releases/latest"><img src="https://img.shields.io/github/release/Trendyol/gaos.svg?style=flat-square" alt="GitHub release"></a>
 </p>
 
