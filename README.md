@@ -117,7 +117,7 @@ Flags:
 Example:
 
 ```bash
-$ gaos run -s ./examples/scenario.json
+$ gaos run -s ./examples/example.json
 ```
 
 After Gaos server started:
@@ -152,13 +152,13 @@ Flags:
 * Example: Docker
 
 ```bash
-$ gaos start -e docker -s './examples/scenario.json)'
+$ gaos start -e docker -s './examples/example.json'
 ```
 
 * Example: Kubernetes
 
 ```bash
-$ gaos start -e k8s -s './examples/scenario.json'
+$ gaos start -e k8s -s './examples/example.json'
 ```
 
 ## Running Tests

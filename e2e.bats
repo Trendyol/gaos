@@ -5,7 +5,7 @@ COMMAND="${COMMAND:/-$BATS_TEST_DIRNAME}"
 : ${CMD:=$GOPATH/bin/gaos}
 
 setup() {
-    TEST_SCENARIO_PASS='./examples/scenario.json'
+    TEST_SCENARIO_PASS='./examples/example.json'
     TEST_SCENARIO_FAIL='/dev/null'
     TEST_EXECUTES_PASS='product,search'
     TEST_EXECUTES_FAIL='product;search'
