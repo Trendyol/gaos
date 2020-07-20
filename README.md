@@ -23,6 +23,8 @@
 
 **Warning:** Currently in Beta.
 
+[![asciicast](https://asciinema.org/a/348527.svg)](https://asciinema.org/a/348527)
+
 ## Features
 
 > * API response mocking
