@@ -28,6 +28,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 	"time"
 )
@@ -64,6 +65,12 @@ type Runner struct {
 	Service  map[string]*Service  `json:"service"`
 	Scenario map[string]*Scenario `json:"scenario"`
 	servers  []*fasthttp.Server
+	Metrics Metrics
+}
+
+type Metrics struct {
+	endpointCallCounts map[string]int
+	sync.Mutex
 }
 
 type Service struct {
@@ -114,10 +121,12 @@ type Scenario struct {
 
 type Method struct {
 	Scenario
+	runner *Runner
 }
 
 func New(path string) (*Runner, error) {
 	runner := &Runner{}
+	runner.Metrics.endpointCallCounts = map[string]int{}
 
 	file, err := ioutil.ReadFile(path)
 
@@ -210,12 +219,13 @@ func (g *Runner) runToService(service *Service, name string) bool {
 
 		if scenario, ok := g.Scenario[value.Scenario]; ok {
 
-			method := Method{*scenario}
+			method := Method{*scenario, g}
 
 			r.Handle(value.Method, path, method.Handler())
-		}
 
+		}
 	}
+	r.Handle(fasthttp.MethodGet, "/metrics", g.metricsHandler())
 
 	server := &fasthttp.Server{
 		Name:    fmt.Sprint(service.Port),
@@ -311,6 +321,21 @@ func (g *Runner) ErrorHandler(ctx *fasthttp.RequestCtx, cause error) {
 	ctx.SetStatusCode(fasthttp.StatusInternalServerError)
 }
 
+func (g *Runner) metricsHandler() fasthttp.RequestHandler {
+
+	return func(ctx *fasthttp.RequestCtx) {
+		resp, err := json.Marshal(g.Metrics.endpointCallCounts)
+
+		if err == nil {
+			ctx.SetBody(resp)
+			ctx.SetStatusCode(fasthttp.StatusOK)
+			ctx.SetContentType(runtime.ContentTypeJSON)
+		} else {
+			ctx.SetStatusCode(fasthttp.StatusInternalServerError)
+		}
+	}
+}
+
 func (m *Method) Handler() fasthttp.RequestHandler {
 
 	cnt := 0
@@ -323,6 +348,7 @@ func (m *Method) Handler() fasthttp.RequestHandler {
 			elapsed := time.Since(start) / time.Millisecond
 			logger.Info(fmt.Sprintf("[%d] Host: %s | Path: %s | Executed: %s | Elapsed time: %dms", cnt, string(ctx.Host()), string(ctx.Request.URI().Path()), name, elapsed))
 			cnt++
+			go m.runner.Metrics.incrementEndpointCallCount(string(ctx.Request.Header.Method()), string(ctx.Request.URI().Path()))
 		}(m.Name)
 
 		action, done := m.Execute()
@@ -454,4 +480,30 @@ func (a *Action) Execute(ctx *fasthttp.RequestCtx) error {
 	ctx.SetContentType(runtime.ContentTypeJSON)
 
 	return nil
+}
+
+
+func (metrics *Metrics) incrementEndpointCallCount(httpMethod, url string){
+
+	if httpMethod == "" || url == "" {
+		return
+	}
+
+	metrics.Lock()
+	defer metrics.Unlock()
+
+	key := endpointCallCountKey(httpMethod, url)
+
+	metrics.endpointCallCounts[key]++
+}
+
+func (metrics *Metrics) GetEndpointCallCount(httpMethod, url string) int{
+	metrics.Lock()
+	defer metrics.Unlock()
+
+	return metrics.endpointCallCounts[endpointCallCountKey(httpMethod, url)]
+}
+
+func endpointCallCountKey(httpMethod, url string) string{
+	return fmt.Sprintf("%s-%s", httpMethod, url)
 }
