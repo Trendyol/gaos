@@ -16,6 +16,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.0.0
+	github.com/stretchr/testify v1.4.0
 	github.com/valyala/fasthttp v1.12.0
 	k8s.io/api v0.17.0
 	k8s.io/apimachinery v0.17.0

@@ -69,7 +69,7 @@ type Runner struct {
 }
 
 type Metrics struct {
-	endpointCallCounts map[string]int
+	EndpointCallCounts map[string]int
 	sync.Mutex
 }
 
@@ -126,7 +126,7 @@ type Method struct {
 
 func New(path string) (*Runner, error) {
 	runner := &Runner{}
-	runner.Metrics.endpointCallCounts = map[string]int{}
+	runner.Metrics.EndpointCallCounts = map[string]int{}
 
 	file, err := ioutil.ReadFile(path)
 
@@ -196,6 +196,12 @@ func (g *Runner) Run(services ...string) {
 		}
 
 		logger.Info(fmt.Sprintf("[%s] Http server closed", v.Name))
+	}
+}
+
+func (g *Runner) ShutdownServers(){
+	for _, server := range g.servers {
+		_ = server.Shutdown()
 	}
 }
 
@@ -324,7 +330,7 @@ func (g *Runner) ErrorHandler(ctx *fasthttp.RequestCtx, cause error) {
 func (g *Runner) metricsHandler() fasthttp.RequestHandler {
 
 	return func(ctx *fasthttp.RequestCtx) {
-		resp, err := json.Marshal(g.Metrics.endpointCallCounts)
+		resp, err := json.Marshal(g.Metrics.EndpointCallCounts)
 
 		if err == nil {
 			ctx.SetBody(resp)
@@ -494,14 +500,14 @@ func (metrics *Metrics) incrementEndpointCallCount(httpMethod, url string){
 
 	key := endpointCallCountKey(httpMethod, url)
 
-	metrics.endpointCallCounts[key]++
+	metrics.EndpointCallCounts[key]++
 }
 
 func (metrics *Metrics) GetEndpointCallCount(httpMethod, url string) int{
 	metrics.Lock()
 	defer metrics.Unlock()
 
-	return metrics.endpointCallCounts[endpointCallCountKey(httpMethod, url)]
+	return metrics.EndpointCallCounts[endpointCallCountKey(httpMethod, url)]
 }
 
 func endpointCallCountKey(httpMethod, url string) string{

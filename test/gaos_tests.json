@@ -1,0 +1,10 @@
+[{
+  	"ApiUrl": "/zeus/product/v2/1069255",
+  	"ApiPort": 8080,
+  	"ApiHttpMethod": "GET",
+  	"DeepBackendUrl": "/product-contents/{content}/pdp",
+  	"DeepBackendPort": 9001,
+  	"DeepBackendHttpMethod": "GET",
+  	"DeepBackendCountCheckPath" : "/product-contents/1069255/pdp",
+  	"MockContainerName": "gaos-zeus-product"
+}]
