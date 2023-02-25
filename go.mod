@@ -17,7 +17,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.0.0
 	github.com/valyala/fasthttp v1.34.0
-	k8s.io/api v0.17.0
-	k8s.io/apimachinery v0.17.0
-	k8s.io/client-go v0.0.0-20200111153838-ea0a6e11838c
+	k8s.io/api v0.20.0-alpha.2
+	k8s.io/apimachinery v0.20.0-alpha.2
+	k8s.io/client-go v0.20.0-alpha.2
 )
