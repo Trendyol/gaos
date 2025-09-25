@@ -1,3 +1,5 @@
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Trendyol/gaos/badge)](https://scorecard.dev/viewer/?uri=github.com/Trendyol/gaos)
 <p align="center"><a href="https://github.com/Trendyol/gaos" target="_blank"><img height="128" src="https://raw.githubusercontent.com/Trendyol/gaos/master/.res/logo.png"></a></p>
 
 <h1 align="center">GAOS</h1>
