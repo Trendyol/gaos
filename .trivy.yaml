@@ -1,0 +1,10 @@
+scan:
+  skip-dirs:
+    - vendor
+    - testdata
+
+vulnerability:
+  ignore-unfixed: false
+
+misconfiguration:
+  include-non-failures: false
